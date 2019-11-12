@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 
 // class
 import { Contact } from '../contact.entity';
@@ -34,4 +34,13 @@ export class ContactsController {
         console.log(`Update # ${contactData.id}`);
         return this.contactsService.update(contactData);
     }
+
+    // Com esse decorador @Delete temos nosso endpoint que aceita solicitações DELETE para deletar um contato
+    // Extraímos e injetamos o ID usando o @Param() e chamamos o método delete do ContactsService
+    @Delete(':id/delete')
+    async delete(@Param('id') id): Promise<any> {
+        return this.contactsService.delete(id);
+    }
+
+
 }
